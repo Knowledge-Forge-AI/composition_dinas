@@ -1,0 +1,73 @@
+{
+  "schema": "nix-darwin-composition-registry-v2",
+  "modules": [
+    {
+      "name": "agentic-praxis-grimoire",
+      "input": "agentic-praxis-grimoire_dinas",
+      "url": "git+ssh://git@github.com/lair001/agentic-praxis-grimoire_dinas.git",
+      "releaseRef": "refs/heads/main",
+      "checkout": "agentic-praxis-grimoire_dinas",
+      "bootstrap": {
+        "strategy": "copy-default",
+        "source": "config/default/agentic-praxis-grimoire.toml",
+        "config": "config/agentic-praxis-grimoire.toml"
+      }
+    },
+    {
+      "name": "entertainment",
+      "input": "entertainment-nd",
+      "url": "git+ssh://git@github.com/lair001/entertainment-nd.git",
+      "releaseRef": "refs/heads/main",
+      "checkout": "entertainment-nd",
+      "bootstrap": {
+        "strategy": "none"
+      }
+    },
+    {
+      "name": "developer-ux",
+      "input": "developer-ux_dinas",
+      "url": "git+ssh://git@github.com/lair001/developer-ux_dinas.git",
+      "releaseRef": "refs/heads/deploy",
+      "checkout": "developer-ux_dinas",
+      "bootstrap": {
+        "strategy": "copy-default",
+        "source": "config/default/developer-ux.toml",
+        "config": "config/developer-ux.toml"
+      }
+    },
+    {
+      "name": "browser-ux",
+      "input": "browser-ux_dinas",
+      "url": "git+ssh://git@github.com/Knowledge-Forge-AI/browser-ux_dinas.git",
+      "releaseRef": "refs/heads/main",
+      "checkout": "browser-ux_dinas",
+      "bootstrap": {
+        "strategy": "copy-default",
+        "source": "config/default/browser-ux.toml",
+        "config": "config/browser-ux.toml"
+      }
+    },
+    {
+      "name": "agent",
+      "input": "agent_dinas",
+      "url": "git+ssh://git@github.com/lair001/agent_dinas.git",
+      "releaseRef": "refs/heads/main",
+      "checkout": "agent_dinas",
+      "bootstrap": {
+        "strategy": "none"
+      }
+    },
+    {
+      "name": "virtual-machines",
+      "input": "virtual-machines_dinas",
+      "url": "git+ssh://git@github.com/lair001/virtual-machines_dinas.git",
+      "releaseRef": "refs/heads/main",
+      "checkout": "virtual-machines_dinas",
+      "bootstrap": {
+        "strategy": "copy-default",
+        "source": "config/default/virtual-machines.toml",
+        "config": "config/virtual-machines.toml"
+      }
+    }
+  ]
+}

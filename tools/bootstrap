@@ -1,0 +1,253 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import sys
+sys.dont_write_bytecode = True
+
+import argparse
+import json
+import os
+from pathlib import Path, PurePosixPath
+import re
+import shutil
+import subprocess
+import tomllib
+from urllib.parse import urlsplit
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "python"))
+
+from registry_contract import (
+    REGISTRY_SCHEMA,
+    TOP_LEVEL_KEYS,
+    ENTRY_KEYS,
+    REPO_TOOL_KEYS,
+    COPY_DEFAULT_KEYS,
+    NONE_KEYS,
+    IDENTIFIER,
+    RegistryError,
+    load_registry as _load_registry_contract,
+    normalize_url as _normalized_url,
+)
+
+
+class BootstrapError(RegistryError, RuntimeError):
+    pass
+
+
+def run(command: list[str]) -> None:
+    subprocess.run(command, check=True)
+
+
+def run_output(command: list[str]) -> str:
+    return subprocess.run(
+        command,
+        check=True,
+        stdout=subprocess.PIPE,
+        text=True,
+    ).stdout.strip()
+
+
+def _exact_keys(value: object, expected: frozenset[str], label: str) -> dict[str, object]:
+    try:
+        from registry_contract import _exact_keys as rc_exact_keys
+        return rc_exact_keys(value, expected, label)
+    except RegistryError as error:
+        raise BootstrapError(str(error)) from error
+
+
+def _identifier(value: object, label: str) -> str:
+    try:
+        from registry_contract import _identifier as rc_identifier
+        return rc_identifier(value, label)
+    except RegistryError as error:
+        raise BootstrapError(str(error)) from error
+
+
+def _relative_path(value: object, label: str, prefix: tuple[str, ...] = ()) -> str:
+    try:
+        from registry_contract import _relative_path as rc_relative_path
+        return rc_relative_path(value, label, prefix)
+    except RegistryError as error:
+        raise BootstrapError(str(error)) from error
+
+
+def _bootstrap(value: object, label: str) -> dict[str, object]:
+    try:
+        from registry_contract import _bootstrap as rc_bootstrap
+        return rc_bootstrap(value, label)
+    except RegistryError as error:
+        raise BootstrapError(str(error)) from error
+
+
+def load_registry(path: Path) -> list[dict[str, object]]:
+    try:
+        return _load_registry_contract(path)
+    except RegistryError as error:
+        raise BootstrapError(str(error)) from error
+
+
+def _resolved_below(base: Path, relative: str, label: str, *, strict: bool) -> Path:
+    resolved_base = base.resolve(strict=True)
+    candidate = (base / relative).resolve(strict=strict)
+    try:
+        candidate.relative_to(resolved_base)
+    except ValueError as error:
+        raise BootstrapError(f"{label} escapes its owned root") from error
+    return candidate
+
+
+def resolve_repo_tool(checkout: Path, entry: dict[str, object]) -> Path:
+    bootstrap = entry["bootstrap"]
+    assert isinstance(bootstrap, dict)
+    executable = _resolved_below(
+        checkout,
+        str(bootstrap["executable"]),
+        "registered bootstrap executable",
+        strict=True,
+    )
+    if not executable.is_file() or not os.access(executable, os.X_OK):
+        raise BootstrapError(f"registered bootstrap executable is unavailable: {executable}")
+    return executable
+
+
+def resolve_default_source(composition: Path, entry: dict[str, object]) -> Path:
+    bootstrap = entry["bootstrap"]
+    assert isinstance(bootstrap, dict)
+    source = _resolved_below(
+        composition / "config/default",
+        str(bootstrap["source"]).removeprefix("config/default/"),
+        "registered default source",
+        strict=True,
+    )
+    if not source.is_file():
+        raise BootstrapError(f"registered default source is unavailable: {source}")
+    return source
+
+
+def ensure_local_root(local_root: Path) -> Path:
+    if local_root.is_symlink():
+        raise BootstrapError(f"local root is unsafe: {local_root}")
+    local_root.mkdir(parents=True, exist_ok=True)
+    if not local_root.is_dir():
+        raise BootstrapError(f"local root is unsafe: {local_root}")
+    return local_root.resolve(strict=True)
+
+
+def ensure_config_root(local_root: Path) -> Path:
+    resolved_local_root = ensure_local_root(local_root)
+    config_root = resolved_local_root / "config"
+    if config_root.is_symlink():
+        raise BootstrapError(f"local config root is unsafe: {config_root}")
+    config_root.mkdir(exist_ok=True)
+    if not config_root.is_dir():
+        raise BootstrapError(f"local config root is unsafe: {config_root}")
+    return _resolved_below(
+        resolved_local_root,
+        "config",
+        "local config root",
+        strict=True,
+    )
+
+
+def resolve_config(local_root: Path, entry: dict[str, object]) -> Path:
+    bootstrap = entry["bootstrap"]
+    assert isinstance(bootstrap, dict)
+    config_root = ensure_config_root(local_root)
+    relative = str(bootstrap["config"]).removeprefix("config/")
+    candidate = config_root / relative
+    if candidate.is_symlink():
+        raise BootstrapError(f"registered config destination is unsafe: {candidate}")
+    return _resolved_below(
+        config_root,
+        relative,
+        "registered config destination",
+        strict=False,
+    )
+
+
+def validate_config_document(config: Path, entry: dict[str, object]) -> None:
+    try:
+        with config.open("rb") as stream:
+            document = tomllib.load(stream)
+    except (OSError, tomllib.TOMLDecodeError) as error:
+        raise BootstrapError(f"registered config is invalid TOML: {config}") from error
+    name = str(entry["name"])
+    if list(document) != [name] or not isinstance(document[name], dict):
+        raise BootstrapError(
+            f"registered config must contain exactly the [{name}] table: {config}"
+        )
+
+
+def checkout_for(local_root: Path, entry: dict[str, object]) -> Path:
+    resolved_local_root = ensure_local_root(local_root)
+    return _resolved_below(
+        resolved_local_root,
+        str(entry["checkout"]),
+        "registered checkout",
+        strict=False,
+    )
+
+
+def establish_entry(composition: Path, local_root: Path, entry: dict[str, object]) -> Path:
+    checkout = checkout_for(local_root, entry)
+    if not checkout.exists():
+        clone_url = _normalized_url(entry["url"], "registry URL")
+        run(["git", "clone", "--", clone_url, str(checkout)])
+    if not (checkout / ".git").is_dir():
+        raise BootstrapError(f"registered checkout is not a Git repository: {checkout}")
+    actual_url = run_output(["git", "-C", str(checkout), "remote", "get-url", "origin"])
+    if _normalized_url(actual_url, "checkout origin") != _normalized_url(entry["url"], "registry URL"):
+        raise BootstrapError(f"registered checkout has an unexpected origin: {checkout}")
+
+    bootstrap = entry["bootstrap"]
+    assert isinstance(bootstrap, dict)
+    if bootstrap["strategy"] == "none":
+        return checkout
+
+    config = resolve_config(local_root, entry)
+    if config.exists() or config.is_symlink():
+        validate_config_document(config, entry)
+        return checkout
+    if bootstrap["strategy"] == "repo-tool":
+        run([str(resolve_repo_tool(checkout, entry)), "--config", str(config)])
+    else:
+        config.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(resolve_default_source(composition, entry), config)
+    validate_config_document(config, entry)
+    return checkout
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Install and validate registered public modules")
+    parser.add_argument("--core", type=Path, required=True)
+    parser.add_argument("--composition", type=Path, default=ROOT)
+    parser.add_argument("--local-root", type=Path)
+    arguments = parser.parse_args()
+    local_root = arguments.local_root or Path(
+        os.environ.get("NIX_DARWIN_LOCAL", Path.home() / ".local/nix-darwin")
+    )
+    try:
+        if not (arguments.core / "flake.nix").is_file():
+            raise BootstrapError("core checkout is unavailable")
+        entries = load_registry(arguments.composition / "registry.json")
+        overrides = ["--override-input", "core", f"path:{arguments.core.resolve()}"]
+        for entry in entries:
+            checkout = establish_entry(arguments.composition, local_root, entry)
+            bootstrap = entry["bootstrap"]
+            assert isinstance(bootstrap, dict)
+            if bootstrap["strategy"] == "repo-tool":
+                overrides.extend(["--override-input", str(entry["input"]), f"path:{checkout}"])
+        run([
+            "nix", "flake", "check", str(arguments.composition),
+            "--no-write-lock-file", *overrides,
+        ])
+    except (BootstrapError, OSError, subprocess.CalledProcessError) as error:
+        print(f"composition-nd bootstrap: {error}", file=sys.stderr)
+        return 1
+    print("composition-nd bootstrap validation complete; activation was not requested")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

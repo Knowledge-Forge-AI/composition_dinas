@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import sys
+sys.dont_write_bytecode = True
+
+import argparse
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "python"))
+
+from lock_provenance import ProvenanceError, classify, load_lock  # noqa: E402
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Classify composition lock provenance structurally")
+    parser.add_argument("--composition-lock", type=Path, required=True)
+    parser.add_argument("--core-lock", type=Path, required=True)
+    parser.add_argument("--core-input", default="core")
+    arguments = parser.parse_args()
+    try:
+        result = classify(
+            load_lock(arguments.composition_lock),
+            load_lock(arguments.core_lock),
+            arguments.core_input,
+        )
+        if not result["core_graph_matches"]:
+            raise ProvenanceError("embedded core graph differs from the exact core lock")
+    except ProvenanceError as error:
+        print(f"check-inherited-lock-provenance: {error}", file=sys.stderr)
+        return 1
+    print(json.dumps(result, indent=2, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

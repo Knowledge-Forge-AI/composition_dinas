@@ -1,0 +1,5 @@
+[browser-ux]
+schema = 1
+
+[browser-ux.keepassxc]
+enable = false

@@ -1,0 +1,72 @@
+.DS_Store
+result*
+.cache/
+.vagrant/
+.test-reports/
+.serena/
+.scratch/
+.superpowers/
+.worktrees/
+
+#Python
+
+# ==========================================
+# Byte-compiled / optimized / DLL files
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ==========================================
+# Virtual Environments
+# ==========================================
+.venv/
+venv/
+ENV/
+env/
+# Pipenv and Poetry lock files are tracked, but local caches are not
+.venv
+.poetry/
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+
+# ==========================================
+# Distribution / Packaging
+# ==========================================
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+# lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ==========================================
+# Secrets and Environment Variables
+# ==========================================
+.env
+*.env
+*.secret
+
+# ==========================================
+# IDE and Code Editor Settings
+# ==========================================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp

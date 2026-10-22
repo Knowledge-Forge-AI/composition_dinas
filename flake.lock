@@ -1,0 +1,322 @@
+{
+  "nodes": {
+    "agent_dinas": {
+      "inputs": {
+        "nix-darwin": [
+          "core",
+          "nix-darwin"
+        ],
+        "nixpkgs": [
+          "core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790223211,
+        "narHash": "sha256-Zr3iQC8hXQtpLfEAwQezSRorJEO087eud8r3yqgxtjg=",
+        "ref": "main",
+        "rev": "29981953ac66844c6981e1a5fb605a9ff4cf0b20",
+        "type": "git",
+        "url": "ssh://git@github.com/lair001/agent_dinas.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/lair001/agent_dinas.git"
+      }
+    },
+    "agentic-praxis-grimoire_dinas": {
+      "inputs": {
+        "nix-darwin": [
+          "core",
+          "nix-darwin"
+        ],
+        "nixpkgs": [
+          "core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789611436,
+        "narHash": "sha256-6l5dZsxdykxv48uDU3WZI9N1BmKG9lQjPMoU/jbM+ic=",
+        "ref": "main",
+        "rev": "6dc71463c4ca24637591ad23fae0291700e25601",
+        "type": "git",
+        "url": "ssh://git@github.com/lair001/agentic-praxis-grimoire_dinas.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/lair001/agentic-praxis-grimoire_dinas.git"
+      }
+    },
+    "browser-ux_dinas": {
+      "inputs": {
+        "nix-darwin": [
+          "core",
+          "nix-darwin"
+        ],
+        "nixpkgs": [
+          "core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792468979,
+        "narHash": "sha256-bFHC+sE7V8OTXJL2c7ueWVAnoCB6ny0zTak4VRJd1BU=",
+        "ref": "main",
+        "rev": "43b3d1caed4d4a4ddd0a9b6db218528859b1a11b",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.com/Knowledge-Forge-AI/browser-ux_dinas.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/Knowledge-Forge-AI/browser-ux_dinas.git"
+      }
+    },
+    "core": {
+      "inputs": {
+        "localConfig": "localConfig",
+        "nix-darwin": "nix-darwin",
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "repo-map-src": "repo-map-src"
+      },
+      "locked": {
+        "lastModified": 1792635235,
+        "narHash": "sha256-4QTJgcFW20IBgF/fWZLcC3/VibAd/cPRXEIKHq/z1ds=",
+        "ref": "refs/heads/main",
+        "rev": "fabb7d14de0812d81b3839dea258e88808034d01",
+        "type": "git",
+        "url": "ssh://git@github.com/Knowledge-Forge-AI/darwin-is-not-a-snowflake.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/Knowledge-Forge-AI/darwin-is-not-a-snowflake.git"
+      }
+    },
+    "developer-ux_dinas": {
+      "inputs": {
+        "nix-darwin": [
+          "core",
+          "nix-darwin"
+        ],
+        "nixpkgs": [
+          "core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790179884,
+        "narHash": "sha256-rGAeTvamPD+QmYBJT2V1BK3fdwXtNnVap7j/y05tPVs=",
+        "ref": "deploy",
+        "rev": "1dff001155b97ff4c0431ce8c9951e874675e97a",
+        "type": "git",
+        "url": "ssh://git@github.com/lair001/developer-ux_dinas.git"
+      },
+      "original": {
+        "ref": "deploy",
+        "type": "git",
+        "url": "ssh://git@github.com/lair001/developer-ux_dinas.git"
+      }
+    },
+    "entertainment-nd": {
+      "inputs": {
+        "nix-darwin": [
+          "core",
+          "nix-darwin"
+        ],
+        "nixpkgs": [
+          "core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787258828,
+        "narHash": "sha256-A7Xir+mSW7rETXT0MXtnVO+KZ79cu++c+A/Dt1Eou5w=",
+        "ref": "main",
+        "rev": "f1c78a7332dbd758b0ff5ea2296fd37d86d47fba",
+        "revCount": 5,
+        "type": "git",
+        "url": "ssh://git@github.com/lair001/entertainment-nd.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/lair001/entertainment-nd.git"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "virtual-machines_dinas",
+          "linux"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790215976,
+        "narHash": "sha256-VkR1rMGyjU9jtw8ISFx5uqR9e+LEaOlhHwrseFkiIVk=",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/home-manager/archive/a6631107a83ceab5872f298a2ea710859c80c4cb.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/nix-community/home-manager/archive/a6631107a83ceab5872f298a2ea710859c80c4cb.tar.gz"
+      }
+    },
+    "linux": {
+      "locked": {
+        "lastModified": 1790450978,
+        "narHash": "sha256-/eLCD/X9kaWJqPR47+fDozEC87Hjmm3i8gJbYmDAD7g=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5e2305d577ca00acbba631b05cb1094d172b29f3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "localConfig": {
+      "locked": {
+        "path": "./config/nix-darwin/default",
+        "type": "path"
+      },
+      "original": {
+        "path": "./config/nix-darwin/default",
+        "type": "path"
+      },
+      "parent": [
+        "core"
+      ]
+    },
+    "localConfig_2": {
+      "locked": {
+        "path": "./config/default",
+        "type": "path"
+      },
+      "original": {
+        "path": "./config/default",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1772129556,
+        "narHash": "sha256-Utk0zd8STPsUJPyjabhzPc5BpPodLTXrwkpXBHYnpeg=",
+        "owner": "nix-darwin",
+        "repo": "nix-darwin",
+        "rev": "ebec37af18215214173c98cf6356d0aca24a2585",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-darwin",
+        "ref": "nix-darwin-25.11",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1782904953,
+        "narHash": "sha256-ESJ4VgytmAt+98YLM8466luln4HyEZ9Q36b9+Bb4P5w=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0921fdb3e13e40fe25fbc52b89661a9d6d32ac68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-25.11-darwin",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1786719841,
+        "narHash": "sha256-QcpQOT0NQEFkI77t+YXPZqDJc35iIodG7zinieOwFUg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8be7bd0c83f12e2e3bbba07c9044d6fed9e66f7f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "repo-map-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791492332,
+        "narHash": "sha256-+s4x00kTNv5Rgc1zLGFmsIEJCfze8oXY209Dqs9ZzQ4=",
+        "owner": "Knowledge-Forge-AI",
+        "repo": "repo-map",
+        "rev": "1adfc7a15e830c8709f76f4e61abb9e24a8c0b17",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Knowledge-Forge-AI",
+        "repo": "repo-map",
+        "rev": "1adfc7a15e830c8709f76f4e61abb9e24a8c0b17",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "agent_dinas": "agent_dinas",
+        "agentic-praxis-grimoire_dinas": "agentic-praxis-grimoire_dinas",
+        "browser-ux_dinas": "browser-ux_dinas",
+        "core": "core",
+        "developer-ux_dinas": "developer-ux_dinas",
+        "entertainment-nd": "entertainment-nd",
+        "localConfig": "localConfig_2",
+        "virtual-machines_dinas": "virtual-machines_dinas"
+      }
+    },
+    "virtual-machines_dinas": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "linux": "linux",
+        "nix-darwin": [
+          "core",
+          "nix-darwin"
+        ],
+        "nixpkgs": [
+          "core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792396017,
+        "narHash": "sha256-frlpI76MLiTXmFh/0go4iaqvFzc2KgBvye55vZ8spgU=",
+        "ref": "main",
+        "rev": "9e1a679e6c12264c12a06a3fe28ddb2224c5bb94",
+        "type": "git",
+        "url": "ssh://git@github.com/lair001/virtual-machines_dinas.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/lair001/virtual-machines_dinas.git"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

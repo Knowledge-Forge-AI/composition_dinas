@@ -1,0 +1,10 @@
+[developer-ux]
+schema = 1
+
+# Omitted paths use the published component and existing generated-output location.
+[developer-ux.vscode]
+
+[developer-ux.vscode.settings]
+delete = []
+
+[developer-ux.vscode.settings.values]

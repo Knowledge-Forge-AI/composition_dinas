@@ -1,0 +1,26 @@
+[virtual-machines]
+schema = 1
+enable = false
+root = "~/virtual-machines"
+tooling = true
+
+[virtual-machines.base]
+cpus = 2
+memory = 2048
+
+[virtual-machines.kde]
+cpus = 4
+memory = 6144
+
+[virtual-machines.desktop]
+cpus = 4
+memory = 12288
+
+[virtual-machines.tart]
+enable = false
+
+[virtual-machines.tart.softnet]
+enable = false
+
+[virtual-machines.tart.quarantine]
+enable = false

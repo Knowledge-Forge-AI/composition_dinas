@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd -P)"
+export PYTHONDONTWRITEBYTECODE=1
+"${PYTHON:-python3}" -m unittest discover -s "$repo_root/tests" -p 'test_*.py' -v
+
+# Verify no bytecode cache files were generated anywhere in the repository
+bytecode_matches="$(find "$repo_root" -name "__pycache__" -o -name "*.pyc")"
+if [[ -n "$bytecode_matches" ]]; then
+    echo "ERROR: Bytecode files were generated during test run:" >&2
+    echo "$bytecode_matches" >&2
+    exit 1
+fi
