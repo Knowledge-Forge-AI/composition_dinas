@@ -85,10 +85,10 @@
         "repo-map-src": "repo-map-src"
       },
       "locked": {
-        "lastModified": 1792635235,
-        "narHash": "sha256-4QTJgcFW20IBgF/fWZLcC3/VibAd/cPRXEIKHq/z1ds=",
+        "lastModified": 1792636116,
+        "narHash": "sha256-RGzvv8KHqC41keWuQ0HSLvjOW6Db/jsSqmKGbdCWM3Y=",
         "ref": "refs/heads/main",
-        "rev": "fabb7d14de0812d81b3839dea258e88808034d01",
+        "rev": "4dccc75844e6d2f298edb2d566366fbe3ab88f61",
         "type": "git",
         "url": "ssh://git@github.com/Knowledge-Forge-AI/darwin-is-not-a-snowflake.git"
       },
