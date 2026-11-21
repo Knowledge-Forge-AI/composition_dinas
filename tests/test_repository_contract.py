@@ -178,7 +178,7 @@ class RepositoryContractTests(unittest.TestCase):
         )
         self.assertIn("developer-ux_dinas.url =", source)
         self.assertIn(
-            '"git+ssh://git@github.com/lair001/developer-ux_dinas.git?ref=deploy";', source
+            '"git+https://github.com/Knowledge-Forge-AI/developer-ux_dinas.git?ref=deploy";', source
         )
         self.assertIn(
             'developer-ux_dinas.inputs.nixpkgs.follows = "core/nixpkgs";', source
@@ -283,7 +283,7 @@ class RepositoryContractTests(unittest.TestCase):
             {
                 "name": "developer-ux",
                 "input": "developer-ux_dinas",
-                "url": "git+ssh://git@github.com/lair001/developer-ux_dinas.git",
+                "url": "git+https://github.com/Knowledge-Forge-AI/developer-ux_dinas.git",
                 "releaseRef": "refs/heads/deploy",
                 "checkout": "developer-ux_dinas",
                 "bootstrap": {"strategy": "copy-default", "source": "config/default/developer-ux.toml", "config": "config/developer-ux.toml"},

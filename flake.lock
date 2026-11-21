@@ -106,20 +106,22 @@
         "nixpkgs": [
           "core",
           "nixpkgs"
-        ]
+        ],
+        "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1790179884,
-        "narHash": "sha256-rGAeTvamPD+QmYBJT2V1BK3fdwXtNnVap7j/y05tPVs=",
+        "lastModified": 1795225926,
+        "narHash": "sha256-MhXZIZRsDCxYmfPLn7gFj34HNKYf3It54C+TLSKgttg=",
         "ref": "deploy",
-        "rev": "1dff001155b97ff4c0431ce8c9951e874675e97a",
+        "rev": "4ad5fb1eac8e2cf8fe73f7562766aae71d5fca55",
+        "revCount": 5,
         "type": "git",
-        "url": "ssh://git@github.com/lair001/developer-ux_dinas.git"
+        "url": "https://github.com/Knowledge-Forge-AI/developer-ux_dinas.git"
       },
       "original": {
         "ref": "deploy",
         "type": "git",
-        "url": "ssh://git@github.com/lair001/developer-ux_dinas.git"
+        "url": "https://github.com/Knowledge-Forge-AI/developer-ux_dinas.git"
       }
     },
     "entertainment-nd": {
@@ -146,6 +148,28 @@
         "ref": "main",
         "type": "git",
         "url": "ssh://git@github.com/lair001/entertainment-nd.git"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "developer-ux_dinas",
+          "nixvim",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768135262,
+        "narHash": "sha256-PVvu7OqHBGWN16zSi6tEmPwwHQ4rLPU9Plvs8/1TUBY=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "80daad04eddbbf5a4d883996a73f3f542fa437ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
       }
     },
     "home-manager": {
@@ -260,6 +284,33 @@
         "type": "github"
       }
     },
+    "nixvim": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": [
+          "developer-ux_dinas",
+          "nixpkgs"
+        ],
+        "nuschtosSearch": [
+          "developer-ux_dinas"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1780865908,
+        "narHash": "sha256-UMwL+pE2I49q6qOV8w6pnuF3utb1qQuofmprBAhOU6A=",
+        "owner": "nix-community",
+        "repo": "nixvim",
+        "rev": "68e314303bc60b8a58cdd2f361013809620b2473",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixvim",
+        "rev": "68e314303bc60b8a58cdd2f361013809620b2473",
+        "type": "github"
+      }
+    },
     "repo-map-src": {
       "flake": false,
       "locked": {
@@ -287,6 +338,21 @@
         "entertainment-nd": "entertainment-nd",
         "localConfig": "localConfig_2",
         "virtual-machines_dinas": "virtual-machines_dinas"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
       }
     },
     "virtual-machines_dinas": {

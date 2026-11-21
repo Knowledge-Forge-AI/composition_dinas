@@ -1,6 +1,6 @@
 # composition_dinas
 
-**v0.0.1 public preview.** The full DINAS composition combines Core with an
+**v0.0.2 public preview.** The full DINAS composition combines Core with an
 explicit adapter registry. It aggregates modules, overlays, configuration
 allowlists, command namespaces, application ownership claims and qualification
 checks. Adapter implementations remain in the repositories that own them.
@@ -8,7 +8,7 @@ checks. Adapter implementations remain in the repositories that own them.
 ## Dependency availability
 
 This publication intentionally retains the **full composition**, not a reduced
-public-only variant. Core and Browser UX are public under Knowledge-Forge-AI.
+public-only variant. Core, Browser UX, and Developer UX are public under Knowledge-Forge-AI.
 The remaining registered repositories are being published separately over time.
 Their existing SSH URLs and exact source pins are retained so the composition
 continues to describe the complete graph. **An unauthenticated clone cannot yet
@@ -22,7 +22,7 @@ those adapters. No unpublished adapter implementation is included in this repo.
 | Browser UX | `browser-ux_dinas` | Public; public `main` channel |
 | Agentic Praxis Grimoire | `agentic-praxis-grimoire_dinas` | Authorized access required |
 | Entertainment | `entertainment-nd` | Authorized access required |
-| Developer UX | `developer-ux_dinas` | Authorized access required |
+| Developer UX | `developer-ux_dinas` | [Public v0.0.1 preview](https://github.com/Knowledge-Forge-AI/developer-ux_dinas/releases/tag/v0.0.1) |
 | Agent | `agent_dinas` | Authorized access required |
 | Virtual machines | `virtual-machines_dinas` | Authorized access required |
 

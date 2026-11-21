@@ -28,3 +28,10 @@ Direct ordinary source verification therefore fails closed on this unmaterialize
 graph. Passing evaluation is not an ordinary deployment qualification; the
 operator's separately materialized snapshot is the scope of the retained native
 plan-only evidence. No guard is relaxed to bypass that distinction.
+
+
+## v0.0.2 update
+
+Developer UX is now a public input fetched over HTTPS. The remaining four
+unpublished adapters retain their v0.0.1 references and access requirements.
+The nested Core configuration path limitation still applies.

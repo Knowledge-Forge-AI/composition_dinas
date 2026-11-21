@@ -12,7 +12,7 @@
     entertainment-nd.inputs.nixpkgs.follows = "core/nixpkgs";
     entertainment-nd.inputs.nix-darwin.follows = "core/nix-darwin";
     developer-ux_dinas.url =
-      "git+ssh://git@github.com/lair001/developer-ux_dinas.git?ref=deploy";
+      "git+https://github.com/Knowledge-Forge-AI/developer-ux_dinas.git?ref=deploy";
     developer-ux_dinas.inputs.nixpkgs.follows = "core/nixpkgs";
     developer-ux_dinas.inputs.nix-darwin.follows = "core/nix-darwin";
     browser-ux_dinas.url =
