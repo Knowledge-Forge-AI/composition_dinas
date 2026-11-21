@@ -362,7 +362,9 @@ class RepositoryContractTests(unittest.TestCase):
             self.assertNotIn("/vscode-nd", node.get("locked", {}).get("url", ""))
 
         def normalized(url: str) -> str:
-            return url.replace("git+ssh://", "ssh://", 1).removesuffix(".git")
+            if url.startswith(("git+ssh://", "git+https://")):
+                url = url.removeprefix("git+")
+            return url.removesuffix(".git")
 
         for entry in registry["modules"]:
             input_name = entry["input"]
